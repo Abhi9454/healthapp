@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 var cors = require('cors')
 const mongoDB = "mongodb://127.0.0.1/healthapp_database";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoDB);
 
 const database = mongoose.connection;
 

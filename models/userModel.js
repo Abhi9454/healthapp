@@ -1,9 +1,17 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-	name : {
+	firstName : {
 		required: true,
 		type: String
+	},
+	lastName : {
+		required: false,
+		type: String
+	},
+	sex : {
+		required: false,
+		type: String,
 	},
 	phone : {
 		required: true,
@@ -15,7 +23,7 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		unique: true
 	},
-	DOB : {        // only for patient
+	dob : {        // only for patient
 		required: false,
 		type: String,
 		default:''

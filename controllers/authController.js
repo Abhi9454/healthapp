@@ -34,6 +34,7 @@ module.exports = {
             );
            }
            catch (error) {
+            console.log('error',error)
                res.status(400).json({success : false,message: error.message})
            }
     },
@@ -60,13 +61,13 @@ module.exports = {
                                    //sendEmail("mishra.abhi8888@gmail.com")
                                    res.status(200).json({
                                            success: true, message :
-                                               [{	
+                                               {	
                                                   token : token,
                                                  name  : user.name,
                                                   email : user.email,
                                                   phoneNumber : user.phone,
                                                   userType : user.userType,
-                                               }]
+                                               }
                                        });
                                }
                        );
