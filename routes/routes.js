@@ -7,6 +7,9 @@ const authController = require('../controllers/authController');
 
 router.route('/getallusers').get(userController.getallUsers);
 router.route('/getuserdetail').post(userController.getUserDetails);
+router.route('/getUserbyId/:uid').post(userController.getUserbyId);
+router.route('/updateUser').post(userController.updateUser);
+router.route('/deleteUser').post(userController.deleteUser);
 
 
 ///////////Authentication Route/////
