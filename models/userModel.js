@@ -98,9 +98,4 @@ const userSchema = new mongoose.Schema({
 		default: Date.now()
 	},
 })
-userSchema.set('toJSON', {
-    virtuals: true,
-    versionKey:false,
-    transform: function (doc, ret) {   delete ret._id  }
-  });
 module.exports = mongoose.model('userModel',userSchema)

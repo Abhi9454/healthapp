@@ -15,9 +15,4 @@ const healthActivitySchema = new mongoose.Schema({
 		default: Date.now()
 	},
 })
-healthActivitySchema.set('toJSON', {
-    virtuals: true,
-    versionKey:false,
-    transform: function (doc, ret) {   delete ret._id  }
-  });
 module.exports = mongoose.model('healthActivity',healthActivitySchema)
