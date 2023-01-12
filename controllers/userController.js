@@ -6,8 +6,9 @@ const jwt = require("jsonwebtoken")
 module.exports = {
     getallUsers : async function(req, res) { 
         try{
+            const {type} = req.body
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
-                const users = await userModel.find({userType : 'patient'}).sort([['_id', -1]]);
+                const users = await userModel.find({userType : type}).sort([['_id', -1]]);
                 res.status(200).json({success : true, message: users})
             })
         }

@@ -6,7 +6,7 @@ const authController = require('../controllers/authController');
 
 /////////// (Admin/Partner/Patient) Route/////
 
-router.route('/getallusers').get(userController.getallUsers);
+router.route('/getallusers').post(userController.getallUsers);
 router.route('/getuserdetail').post(userController.getUserDetails);
 router.route('/getUserbyId/:uid').post(userController.getUserbyId);
 router.route('/updateUser').post(userController.updateUser);
