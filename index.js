@@ -3,13 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 var cors = require('cors')
-// const mongoString = process.env.DATABASE_URL;
 const mongoDB = "mongodb://127.0.0.1/my_database";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// mongoose.set('strictQuery', true);
-
-// mongoose.connect(mongoString);
 const database = mongoose.connection;
 
 database.on('error', (error) => {
