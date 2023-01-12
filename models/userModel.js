@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
 	DOB : {        // only for patient
 		required: false,
 		type: String,
-		unique: true
+		default:''
 	},
 	userType : {
 		required: false,
