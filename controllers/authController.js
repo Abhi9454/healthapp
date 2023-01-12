@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken");
 module.exports = {
     signUp : async function(req, res){
         try {
-            const {name,email,password,userType} = req.body;
+            const {name,email,password,userType,phone} = req.body;
            let user = await userModel.findOne({email});
            if (user) return res.status(400).json({ success : false, message: "Email Already Exists"});
-           user =  new userModel({name,email,password,userType})
+           user =  new userModel({name,email,password,userType,phone})
            const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
             await user.save();
