@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 var cors = require('cors')
 const mongoString = process.env.DATABASE_URL;
 
+mongoose.set('strictQuery', true);
+
 mongoose.connect(mongoString);
 const database = mongoose.connection;
 
