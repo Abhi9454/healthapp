@@ -9,5 +9,5 @@ router.route('/getallusers').get(userController.getallUsers);
 router.route('/getuserdetail').post(userController.getUserDetails);
 
 
-router.route('/signUp').get(authController.signUp);
+router.route('/signUp').post(authController.signUp);
 router.route('/login').post(authController.login);
