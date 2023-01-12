@@ -1,4 +1,4 @@
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
 	name : {
@@ -15,9 +15,19 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		unique: true
 	},
-	userType : {
+	DOB : {        // only for patient
 		required: false,
 		type: String,
+		unique: true
+	},
+	userType : {
+		required: false,
+		type: String, //patient,partner,admin
+	},
+	healthActivity : {    // only for patient
+		required: false,
+		type: Array,
+		default:''
 	},
 	profileImageUrl : {
 		required: false,
@@ -78,7 +88,7 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		default: ''
 	},
-    deviceId :{
+    deviceId :{ 
 		required : false,
 		type: String,
 		default: ''
