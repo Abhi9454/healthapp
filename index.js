@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 var cors = require('cors')
-const mongoDB = "mongodb://127.0.0.1/my_database";
+const mongoDB = "mongodb://127.0.0.1/healthapp_database";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const database = mongoose.connection;
