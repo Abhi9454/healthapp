@@ -22,13 +22,13 @@ module.exports = {
                         if (err) throw err;
                     res.status(200).json({
                     success: true, message : 
-                    [{
+                    {
                         token : token,
                         name  : user.name,
                         email : user.email,
                         phoneNumber : user.phone,
                         userType : user.userType,
-                    }]
+                    }
                     });
                     }
             );
