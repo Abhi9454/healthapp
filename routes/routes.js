@@ -4,6 +4,7 @@ module.exports = router;
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 
+/////////// (Admin/Partner/Patient) Route/////
 
 router.route('/getallusers').get(userController.getallUsers);
 router.route('/getuserdetail').post(userController.getUserDetails);
