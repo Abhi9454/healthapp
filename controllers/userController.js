@@ -42,6 +42,32 @@ module.exports = {
             return res.status(400).json({status:false,message:err.message})
         }
     },
+    addUser:function(req,res){
+        try {
+            jwt.verify(req.headers.authorization.split(' ')[1], 'test', async function(err, users){
+                const {firstName,lastName,sex,phone,email,dob,userType,healthActivity,profileImageUrl,description,
+                    coverImageUrl,category,address,city,state,country,active,pincode,partnerId,deviceId} = req.body          
+                 let user = await userModel.findOne({email});
+           if (user) return res.status(400).json({ success : false, message: "Email Already Exists"});
+           user =  new userModel({firstName,lastName,sex,phone,email,dob,userType,healthActivity,profileImageUrl,description,
+            coverImageUrl,category,address,city,state,country,active,pincode,partnerId,deviceId})
+           const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+            await user.save();
+            res.status(200).json({status:false,message:
+                {	
+                    message : "Added User Successfully",
+                    user  : user,
+                 }})
+            
+                })
+           }
+           catch (error) {
+            console.log('error',error)
+               res.status(400).json({success : false,message: error.message})
+           }
+           
+    },
     updateUser: function(req,res){
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'test', async function(err, users){
