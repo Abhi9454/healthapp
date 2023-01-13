@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
 		required: false,
 		type: String
 	},
+	organizationName : { // only for partner
+		required: false,
+		type: String
+	},
 	sex : {
 		required: false,
 		type: String,
