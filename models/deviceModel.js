@@ -24,5 +24,6 @@ const deviceSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now()
 	},
-})
-module.exports = mongoose.model('deviceModel',deviceSchema)
+},{collection : 'device'},)
+
+module.exports = mongoose.model('device',deviceSchema)

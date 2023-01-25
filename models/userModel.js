@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
 		required: false,
 		type: String
 	},
-	sex : {
+	gender : {
 		required: false,
 		type: String,
 	},
@@ -34,7 +34,8 @@ const userSchema = new mongoose.Schema({
 	},
 	userType : {
 		required: false,
-		type: String, //patient,partner,admin
+		type: Number, //patient = 0,partner = 1,admin = 2
+		default: '0'
 	},
 	healthActivity : {    // only for patient
 		required: false,
@@ -109,5 +110,6 @@ const userSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now()
 	},
-})
-module.exports = mongoose.model('userModel',userSchema)
+},{collection : 'user'},)
+
+module.exports = mongoose.model('user',userSchema)

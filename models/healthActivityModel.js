@@ -14,5 +14,7 @@ const healthActivitySchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now()
 	},
-})
+},{collection : 'healthActivity'},)
+
+
 module.exports = mongoose.model('healthActivity',healthActivitySchema)

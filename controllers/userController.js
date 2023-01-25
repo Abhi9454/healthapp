@@ -44,22 +44,19 @@ module.exports = {
     },
     addUser:function(req,res){
         try {
-            jwt.verify(req.headers.authorization.split(' ')[1], 'test', async function(err, users){
-                const {firstName,lastName,sex,phone,email,dob,userType,healthActivity,profileImageUrl,description,
-                    coverImageUrl,category,address,city,state,country,active,pincode,partnerId,deviceId} = req.body          
-                 let user = await userModel.findOne({email});
-           if (user) return res.status(400).json({ success : false, message: "Email Already Exists"});
-           user =  new userModel({firstName,lastName,sex,phone,email,dob,userType,healthActivity,profileImageUrl,description,
-            coverImageUrl,category,address,city,state,country,active,pincode,partnerId,deviceId})
-           const salt = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(password, salt);
-            await user.save();
-            res.status(200).json({status:false,message:
-                {	
-                    message : "Added User Successfully",
-                    user  : user,
-                 }})
-            
+            jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
+                const {firstName,lastName,gender,phone,email,dob,address,city,state,country,active,pincode,partnerId,deviceId} = req.body          
+                let user = await userModel.findOne({email});
+                if (user) return res.status(400).json({ success : false, message: "Email Already Exists"});
+                user =  new userModel({firstName,lastName,gender,phone,email,dob,address,city,state,country,active,pincode,partnerId,deviceId})
+                const salt = await bcrypt.genSalt(10);
+                user.password = await bcrypt.hash(password, salt);
+                await user.save();
+                res.status(200).json({status:false,message:
+                    {	
+                        message : "Added User Successfully",
+                        user  : user,
+                    }})
                 })
            }
            catch (error) {
@@ -70,15 +67,15 @@ module.exports = {
     },
     updateUser: function(req,res){
         try {
-            jwt.verify(req.headers.authorization.split(' ')[1], 'test', async function(err, users){
-                const {firstName,lastName,sex,phone,email,dob,userType,healthActivity,profileImageUrl,description,
+            jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
+                const {firstName,lastName,gender,phone,email,dob,userType,healthActivity,profileImageUrl,description,
                     coverImageUrl,category,address,city,state,country,active,pincode,partnerId,deviceId} = req.body
                 let user = await userModel.findOne({_id:id}) 
                 if(!Branch) return  res.status(200).json({status:false,message: "No User Exist"})
                 Branch = await userModel.findOneAndUpdate({_id:id},{
                     firstName:firstName
                     ,lastName:lastName
-                    ,sex:sex
+                    ,gender:gender
                     ,phone:phone
                     ,email:email
                     ,dob:dob
@@ -100,8 +97,6 @@ module.exports = {
                     new:true
                 })
                 await user.save();
-                let person = await userModel.findOne({_id:userId}) 
-                console.log('person',person)
                 res.status(200).json({status:false,message:
                     {	
                         message : "Updated User Successfully",
@@ -116,7 +111,7 @@ module.exports = {
 
     deleteUser: function(req,res){
         try {
-            jwt.verify(req.headers.authorization.split(' ')[1], 'test', async function(err, users){
+            jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
                 const {id} = req.body
                 let user = await userModel.findOne({_id:id}) 
                 if(!user) return  res.status(200).json({status:false,message: "No User Exist"})
