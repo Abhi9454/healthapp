@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema({
 	},
 	category : {
 		required: false,
-		type: String,
+		type: Object,
 		default:''
 	},
 	password :{

@@ -12,6 +12,9 @@ router.route('/getuserdetail').post(userController.getUserDetails);
 router.route('/getUserbyId/:uid').post(userController.getUserbyId);
 router.route('/updateUser').post(userController.updateUser);
 router.route('/deleteUser').post(userController.deleteUser);
+router.route('/getstate').get(userController.getState);
+router.route('/getcities').post(userController.getCity);
+router.route('/getallUsersAssigned').post(userController.getallUsersAssigned);
 
 
 ///////////Authentication Route/////

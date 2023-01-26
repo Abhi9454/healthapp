@@ -71,6 +71,7 @@ module.exports = {
                                                   id:user._id,
                                                   phoneNumber : user.phone,
                                                   userType : user.userType,
+                                                  organizationName : user.organizationName,
                                                }
                                        });
                                }

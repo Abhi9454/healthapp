@@ -16,7 +16,7 @@ module.exports = {
     getDeviceDetailById : async function(req, res) { 
         try{
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
-            const device = await deviceModel.find({_id : req.body.id});
+            const device = await deviceModel.findOne({_id : req.body.id});
             res.status(200).json({success : true, message: device})
         })
         }
@@ -48,7 +48,7 @@ module.exports = {
     updateDevice: function(req,res){
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
-                const {name,modelName,modelId,partnerId} = req.body
+                const {name,modelName,modelId,partnerId,id} = req.body
                 let device = await deviceModel.findOne({_id:id}) 
                 if(!device) return  res.status(400).json({status:false,message: "No Device Exist"})
                 device = await deviceModel.findOneAndUpdate({_id:id},{
