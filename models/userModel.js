@@ -29,13 +29,13 @@ const userSchema = new mongoose.Schema({
 	},
 	dob : {        // only for patient
 		required: false,
-		type: String,
+		type: String, 
 		default:''
 	},
 	userType : {
 		required: false,
-		type: Number, //patient = 0,partner = 1,admin = 2
-		default: '0'
+		type: Number, //patient = 2,partner = 1,admin = 0
+		default: '1'
 	},
 	healthActivity : {    // only for patient
 		required: false,

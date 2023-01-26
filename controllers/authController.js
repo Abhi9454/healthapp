@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken");
 module.exports = {
     signUp : async function(req, res){
         try {
-            const {firstName,lastName,email,password,userType,phone} = req.body;
+            const {firstName,lastName,email,password,userType,phone,organizationName} = req.body;
            let user = await userModel.findOne({email});
            if (user) return res.status(400).json({ success : false, message: "Email Already Exists"});
-           user =  new userModel({firstName,lastName,email,password,userType,phone})
+           user =  new userModel({firstName,lastName,email,password,userType,phone,organizationName})
            const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
             await user.save();
@@ -29,6 +29,7 @@ module.exports = {
                         email : user.email,
                         phoneNumber : user.phone,
                         userType : user.userType,
+                        organizationName:user.organizationName
                     }
                     });
                     }
@@ -67,6 +68,7 @@ module.exports = {
                                                   firstName  : user.firstName,
                                                   lastName  : user.lastName,
                                                   email : user.email,
+                                                  id:user._id,
                                                   phoneNumber : user.phone,
                                                   userType : user.userType,
                                                }
@@ -75,7 +77,7 @@ module.exports = {
                        );
                }
                else{
-                   return res.status(200).json({
+                   return res.status(400).json({
                                        success : false, message: "Invalid email/password"
                                });
                }

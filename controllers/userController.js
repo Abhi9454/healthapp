@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel');
 const jwt = require("jsonwebtoken")
+const bcrypt = require("bcryptjs");
 
 
 
@@ -19,7 +20,7 @@ module.exports = {
     getUserDetails : async function(req, res) { 
         try{
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
-            const users = await userModel.find({_id : req.body.id});
+            const users = await userModel.findOne({_id : req.body.id});
             res.status(200).json({success : true, message: users})
         })
         }
@@ -45,10 +46,10 @@ module.exports = {
     addUser:function(req,res){
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
-                const {firstName,lastName,gender,phone,email,dob,address,city,state,country,active,pincode,partnerId,deviceId} = req.body          
+                const {firstName,lastName,gender,phone,email,dob,address,city,state,country,active,pincode,partnerId,deviceId,organizationName,password} = req.body          
                 let user = await userModel.findOne({email});
                 if (user) return res.status(400).json({ success : false, message: "Email Already Exists"});
-                user =  new userModel({firstName,lastName,gender,phone,email,dob,address,city,state,country,active,pincode,partnerId,deviceId})
+                user =  new userModel({firstName,lastName,gender,phone,email,dob,address,city,state,country,active,pincode,partnerId,deviceId,organizationName})
                 const salt = await bcrypt.genSalt(10);
                 user.password = await bcrypt.hash(password, salt);
                 await user.save();
@@ -69,10 +70,10 @@ module.exports = {
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
                 const {firstName,lastName,gender,phone,email,dob,userType,healthActivity,profileImageUrl,description,
-                    coverImageUrl,category,address,city,state,country,active,pincode,partnerId,deviceId} = req.body
+                    coverImageUrl,category,address,city,state,country,active,pincode,organizationName,partnerId,deviceId,id} = req.body
                 let user = await userModel.findOne({_id:id}) 
-                if(!Branch) return  res.status(200).json({status:false,message: "No User Exist"})
-                Branch = await userModel.findOneAndUpdate({_id:id},{
+                if(!user) return  res.status(400).json({status:false,message: "No User Exist"})
+                user = await userModel.findOneAndUpdate({_id:id},{
                     firstName:firstName
                     ,lastName:lastName
                     ,gender:gender
@@ -91,8 +92,9 @@ module.exports = {
                     ,country:country
                     ,active:active
                     ,pincode:pincode
+                    ,organizationName:organizationName
                     ,partnerId:partnerId
-                    ,deviceId:deviceId
+                    ,deviceId:deviceId 
                 },{
                     new:true
                 })
