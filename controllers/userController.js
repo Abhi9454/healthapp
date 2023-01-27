@@ -18,6 +18,14 @@ module.exports = {
                         }
                     }
                 }
+                if(type == 1){
+                    for(var i = 0 ; i < users.length ; i++){
+                        if(users[i].partnerId != null){
+                            var partner = await userModel.find({partnerId:users[i]._id})
+                            users[i].patientCount = partner.length
+                        }
+                    }
+                }
                 res.status(200).json({success : true, message: users})
             })
         }
