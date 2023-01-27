@@ -14,12 +14,12 @@ module.exports = {
                     if(element.userType === 2){
                         if(element.partnerId){
                             let  partner = await userModel.findOne({_id:element.partnerId}) 
-                            element.category = partner
+                            element.partner = partner
                         }else {
-                            element.category = {}
+                            element.partner = {}
                         }
                     } else {
-                        element.category = {}
+                        element.partner = {}
                     }
                 });
 
