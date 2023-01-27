@@ -14,7 +14,7 @@ module.exports = {
                     for(var i = 0 ; i < users.length ; i++){
                         if(users[i].partnerId != null){
                             var partner = await userModel.findOne({_id:users[i].partnerId})
-                            users.partner = partner
+                            users[i].partner = partner
                         }
                     }
                 }
