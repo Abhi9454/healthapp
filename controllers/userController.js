@@ -9,16 +9,14 @@ module.exports = {
         try{
             const {type} = req.body
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
-                const users = await userModel.find({userType : type}).sort([['_id', -1]]).lean();
+                var users = await userModel.find({userType : type}).sort([['_id', -1]]).lean();
                 if(type == 2){
-                    users.forEach(async element => {
-                        if(element.partnerId){
-                            let  partner = await userModel.findOne({_id:element.partnerId}) 
-                            element.partner = partner
-                        }else {
-                            element.partner = {}
+                    for(var i = 0 ; i < users.length ; i++){
+                        if(users[i].partnerId != null){
+                            var partner = await userModel.findOne({_id:users[i].partnerId})
+                            users.partner = partner
                         }
-                    });
+                    }
                 }
                 res.status(200).json({success : true, message: users})
             })
