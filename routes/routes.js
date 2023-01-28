@@ -40,7 +40,12 @@ router.route('/deletedevice').post(deviceController.deleteDevice);
 /////////// Heart Rate Route/////
 router.route('/addHeartRate').post(vitalController.addHeartRate);
 router.route('/getHeartRate').post(vitalController.getHeartRateById);
-router.route('/getdevicedetail').post(deviceController.getDeviceDetailById);
-router.route('/updatedevice').post(deviceController.updateDevice);
-router.route('/deletedevice').post(deviceController.deleteDevice);
+
+/////////// Glucose Route/////
+router.route('/addGlucsoe').post(vitalController.addGlucose);
+router.route('/getGlucose').post(vitalController.getGlucoseById);
+
+/////////// Temperature Route/////
+router.route('/addTemperature').post(vitalController.addTemperature);
+router.route('/getTemperature').post(vitalController.getTemperatureById);
 

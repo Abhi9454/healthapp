@@ -66,4 +66,35 @@ module.exports = {
            }
            
     },
+
+    getGlucoseById : async function(req, res) { 
+        try{
+            jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
+            const glucose = await glucoseModel.find({userId : user.id});
+            res.status(200).json({success : true, message: glucose})
+        })
+        }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    addGlucose:function(req,res){
+        try {
+            jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
+                const {userId,glucose} = req.body          
+                var gluc =  new glucoseModel({userId,glucose})
+                await gluc.save();
+                res.status(200).json({status:false,message:
+                    {	
+                        message : "Added successfully",
+                        device  : gluc,
+                    }})
+                })
+           }
+           catch (error) {
+            console.log('error',error)
+               res.status(400).json({success : false,message: error.message})
+           }
+           
+    },
 }
