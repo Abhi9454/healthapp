@@ -11,7 +11,7 @@ const heartRateSchema = new mongoose.Schema({
 		default:''
 	},
     createdAt:{
-		type: String,
+		type: "String",
 		default: Date.now()
 	},
 },{collection : 'heartRate'}

@@ -27,7 +27,7 @@ module.exports = {
                 const createdAt = Date.now()    
                 var heart =  new heartRateModel({userId,heartRate,createdAt})
                 await heart.save();
-                res.status(200).json({status:false,message:
+                res.status(200).json({success : true,message:
                     {	
                         message : "Added successfully",
                         heart  : heart,
@@ -55,10 +55,11 @@ module.exports = {
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
                 const {weight} = req.body  
-                const userId = users.id          
-                var weightDetail =  new weightModel({userId,weight})
+                const userId = users.id  
+                const createdAt = Date.now()           
+                var weightDetail =  new weightModel({userId,weight, createdAt})
                 await weightDetail.save();
-                res.status(200).json({status:false,message:
+                res.status(200).json({success : true,message:
                     {	
                         message : "Added successfully",
                         device  : weightDetail,
@@ -87,10 +88,11 @@ module.exports = {
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
                 const {glucose} = req.body  
-                const userId = users.id          
-                var gluc =  new glucoseModel({userId,glucose})
+                const userId = users.id 
+                const createdAt = Date.now()            
+                var gluc =  new glucoseModel({userId,glucose, createdAt})
                 await gluc.save();
-                res.status(200).json({status:false,message:
+                res.status(200).json({success : true,message:
                     {	
                         message : "Added successfully",
                         device  : gluc,
@@ -119,10 +121,11 @@ module.exports = {
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
                 const {sleep} = req.body  
-                const userId = users.id          
-                var sleeps =  new sleepModel({userId,sleep})
+                const userId = users.id  
+                const createdAt = Date.now()           
+                var sleeps =  new sleepModel({userId,sleep, createdAt})
                 await sleeps.save();
-                res.status(200).json({status:false,message:
+                res.status(200).json({success : true,message:
                     {	
                         message : "Added successfully",
                         sleep  : sleeps,
@@ -151,10 +154,11 @@ module.exports = {
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
                 const {step} = req.body  
-                const userId = users.id          
-                var steps =  new stepModel({userId,step})
+                const userId = users.id    
+                const createdAt = Date.now()         
+                var steps =  new stepModel({userId,step,createdAt})
                 await steps.save();
-                res.status(200).json({status:false,message:
+                res.status(200).json({success : true,message:
                     {	
                         message : "Added successfully",
                         steps  : steps,

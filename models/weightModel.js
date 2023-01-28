@@ -11,7 +11,7 @@ const stepSchema = new mongoose.Schema({
 		default:''
 	},
 	createdAt:{
-		type: Date,
+		type: "String",
 		default: Date.now()
 	},
 },{collection : 'weight'},)
