@@ -40,7 +40,15 @@ router.route('/getHeartRate').post(vitalController.getHeartRateById);
 router.route('/addGlucsoe').post(vitalController.addGlucose);
 router.route('/getGlucose').post(vitalController.getGlucoseById);
 
-/////////// Temperature Route/////
-router.route('/addTemperature').post(vitalController.addTemperature);
-router.route('/getTemperature').post(vitalController.getTemperatureById);
+/////////// Weight Route/////
+router.route('/addWeight').post(vitalController.addTemperature);
+router.route('/getWeight').post(vitalController.getTemperatureById);
+
+/////////// Sleep Route/////
+router.route('/addSleep').post(vitalController.addTemperature);
+router.route('/getSleep').post(vitalController.getTemperatureById);
+
+/////////// Steps Route/////
+router.route('/addSteps').post(vitalController.addTemperature);
+router.route('/getSteps').post(vitalController.getTemperatureById);
 
