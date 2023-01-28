@@ -15,7 +15,12 @@ router.route('/deleteUser').post(userController.deleteUser);
 router.route('/getstate').get(userController.getState);
 router.route('/getcities').post(userController.getCity);
 router.route('/getallUsersAssigned').post(userController.getallUsersAssigned);
+router.route('/getallUsersDuringSignUp').get(userController.getallUsersDuringSignUp);
+router.route('/partnerDashboard').get(userController.partnerDashboard);
 
+
+///////////Admin DashBoard Route/////
+router.route('/adminDashboard').get(userController.adminDashboard);
 
 ///////////Authentication Route/////
 router.route('/signUp').post(authController.signUp);

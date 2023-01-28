@@ -5,6 +5,52 @@ const bcrypt = require("bcryptjs");
 
 
 module.exports = {
+    getallUsersDuringSignUp : async function(req, res) { 
+        try{
+                var users = await userModel.find({userType : 1}).sort([['_id', -1]]).lean();
+                res.status(200).json({success : true, message: users})
+        }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    adminDashboard : async function(req, res) { 
+        try{
+            jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
+                var activePatient = await userModel.find({userType : 2 , active : 1});
+                var activePartner = await userModel.find({userType : 1 , active : 1});
+                var InactivePatient = await userModel.find({userType : 2 , active : 0});
+                var InactivePartner = await userModel.find({userType : 1 , active : 0});
+                let data = {
+                    activePatient:activePatient.length, 
+                    activePartner:activePartner.length, 
+                    InactivePatient:InactivePatient.length, 
+                    InactivePartner:InactivePartner.length, 
+                }
+                res.status(200).json({success : true, message: data})
+            })
+        }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    partnerDashboard : async function(req, res) { 
+        try{
+            jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
+                console.log('user cominf',user)
+                var activePatient = await userModel.find({userType : 2 , active : 1});
+                var InactivePatient = await userModel.find({userType : 2 , active : 0});
+                let data = {
+                    activePatient:activePatient.length, 
+                    InactivePatient:InactivePatient.length, 
+                }
+                res.status(200).json({success : true, message: data})
+            })
+        }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
     getallUsers : async function(req, res) { 
         try{
             const {type} = req.body
@@ -76,7 +122,7 @@ module.exports = {
     addUser:function(req,res){
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
-                const {firstName,lastName,gender,phone,email,dob,address,city,state,country,active,pincode,userType,partnerId,deviceId,organizationName,password} = req.body          
+                const {firstName,lastName,gender,phone,modelId,email,dob,address,city,state,country,active,pincode,userType,partnerId,deviceId,organizationName,password} = req.body          
                 let user = await userModel.findOne({email});
                 let partner = '';
                 if(userType === 2){
@@ -84,7 +130,7 @@ module.exports = {
                     console.log('paer',partner)
                 }
                 if (user) return res.status(400).json({ success : false, message: "Email Already Exists"});
-                user =  new userModel({firstName,lastName,gender,phone,email,userType,dob,address,city,state,country,active,pincode,partnerId,deviceId,organizationName})
+                user =  new userModel({firstName,lastName,gender,modelId,phone,email,userType,dob,address,city,state,country,active,pincode,partnerId,deviceId,organizationName})
                 const salt = await bcrypt.genSalt(10);
                 user.password = await bcrypt.hash(password, salt);
                 await user.save();
@@ -115,7 +161,7 @@ module.exports = {
     updateUser: function(req,res){
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
-                const {firstName,lastName,gender,phone,email,dob,userType,healthActivity,profileImageUrl,description,
+                const {firstName,lastName,gender,phone,email,dob,userType,modelId,healthActivity,profileImageUrl,description,
                     coverImageUrl,category,address,city,password,state,country,active,pincode,organizationName,partnerId,deviceId,id} = req.body
                 let user = await userModel.findOne({_id:id}) 
                 if(!user) return  res.status(400).json({status:false,message: "No User Exist"})
@@ -126,6 +172,7 @@ module.exports = {
                     ,phone:phone
                     ,email:email
                     ,dob:dob
+                    ,modelId:modelId
                     ,userType:userType
                     ,healthActivity:healthActivity
                     ,profileImageUrl:profileImageUrl
@@ -145,6 +192,8 @@ module.exports = {
                 },{
                     new:true
                 })
+                const salt = await bcrypt.genSalt(10);
+                user.password = await bcrypt.hash(password, salt);
                 await user.save();
                 res.status(200).json({status:false,message:
                     {	
