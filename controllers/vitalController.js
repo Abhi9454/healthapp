@@ -20,13 +20,14 @@ module.exports = {
     addHeartRate:function(req,res){
         try {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
-                const {userId,heartRate} = req.body          
+                const {heartRate} = req.body      
+                const userId = users.id    
                 var heart =  new heartRateModel({userId,heartRate})
                 await heart.save();
                 res.status(200).json({status:false,message:
                     {	
                         message : "Added successfully",
-                        device  : device,
+                        device  : heart,
                     }})
                 })
            }
