@@ -2,7 +2,7 @@ const heartRateModel = require('../models/heartRateModel');
 const glucoseModel = require('../models/glucoseModel');
 const weightModel = require('../models/weightModel');
 const sleepModel = require('../models/sleepModel');
-const stepModel = require('../models/stepModel');
+const stepModel = require('../models/stepsModel');
 const jwt = require("jsonwebtoken")
 
 
