@@ -1,6 +1,6 @@
 const heartRateModel = require('../models/heartRateModel');
 const glucoseModel = require('../models/glucoseModel');
-const temperatureModel = require('../models/temperatureModel');
+const temperatureModel = require('../models/stepsModel');
 const jwt = require("jsonwebtoken")
 
 

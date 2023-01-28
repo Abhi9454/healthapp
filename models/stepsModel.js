@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const temperatureSchema = new mongoose.Schema({
+const stepSchema = new mongoose.Schema({
 	userId : {
 		required: true,
 		type: String
 	},
-	temperature : {
+	steps : {
 		required: false,
 		type: String,
 		default:''
@@ -14,6 +14,6 @@ const temperatureSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now()
 	},
-},{collection : 'temperature'},)
+},{collection : 'steps'},)
 
-module.exports = mongoose.model('temperature',temperatureSchema)
+module.exports = mongoose.model('steps',stepSchema)
