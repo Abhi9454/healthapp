@@ -42,7 +42,7 @@ router.route('/addHeartRate').post(vitalController.addHeartRate);
 router.route('/getHeartRate').post(vitalController.getHeartRateById);
 
 /////////// Glucose Route/////
-router.route('/addGlucsoe').post(vitalController.addGlucose);
+router.route('/addGlucose').post(vitalController.addGlucose);
 router.route('/getGlucose').post(vitalController.getGlucoseById);
 
 /////////// Weight Route/////

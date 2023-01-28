@@ -11,7 +11,7 @@ module.exports = {
     getHeartRateById : async function(req, res) { 
         try{
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
-            const heartRate = await heartRateModel.find({userId : user.id});
+            const heartRate = await heartRateModel.find({userId : req.body.id});
             res.status(200).json({success : true, message: heartRate})
         })
         }
@@ -43,7 +43,7 @@ module.exports = {
     getWeightById : async function(req, res) { 
         try{
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
-            const weight = await weightModel.find({userId : user.id});
+            const weight = await weightModel.find({userId : req.body.id});
             res.status(200).json({success : true, message: weight})
         })
         }
@@ -76,7 +76,7 @@ module.exports = {
     getGlucoseById : async function(req, res) { 
         try{
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
-            const glucose = await glucoseModel.find({userId : user.id});
+            const glucose = await glucoseModel.find({userId : req.body.id});
             res.status(200).json({success : true, message: glucose})
         })
         }
@@ -109,7 +109,7 @@ module.exports = {
     getSleepById : async function(req, res) { 
         try{
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
-            const sleep = await sleepModel.find({userId : user.id});
+            const sleep = await sleepModel.find({userId : req.body.id});
             res.status(200).json({success : true, message: sleep})
         })
         }
@@ -142,7 +142,7 @@ module.exports = {
     getStepById : async function(req, res) { 
         try{
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, user){
-            const steps = await stepModel.find({userId : user.id});
+            const steps = await stepModel.find({userId : req.body.id});
             res.status(200).json({success : true, message: steps})
         })
         }
