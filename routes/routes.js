@@ -4,6 +4,7 @@ module.exports = router;
 const userController = require('../controllers/userController');
 const deviceController = require('../controllers/deviceController');
 const authController = require('../controllers/authController');
+const vitalController = require('../controllers/vitalController');
 
 /////////// (Admin/Partner/Patient) Route/////
 router.route('/addUser').post(userController.addUser);
@@ -28,3 +29,13 @@ router.route('/getalldevice').post(deviceController.getAllDevices);
 router.route('/getdevicedetail').post(deviceController.getDeviceDetailById);
 router.route('/updatedevice').post(deviceController.updateDevice);
 router.route('/deletedevice').post(deviceController.deleteDevice);
+
+
+
+/////////// Heart Rate Route/////
+router.route('/addHeartRate').post(vitalController.addHeartRate);
+router.route('/getHeartRate').post(vitalController.getHeartRateById);
+router.route('/getdevicedetail').post(deviceController.getDeviceDetailById);
+router.route('/updatedevice').post(deviceController.updateDevice);
+router.route('/deletedevice').post(deviceController.deleteDevice);
+
