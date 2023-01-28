@@ -10,10 +10,8 @@ const heartRateSchema = new mongoose.Schema({
 		type: String,
 		default:''
 	},
-	createdAt:{
-		type: Date,
-		default: Date.now()
-	},
-},{collection : 'heartRate'},)
+},{collection : 'heartRate'},
+{timestamps: true}
+)
 
 module.exports = mongoose.model('heartRate',heartRateSchema)
