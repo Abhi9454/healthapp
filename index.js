@@ -1,7 +1,8 @@
 require('dotenv').config();
 
 import express, { json, urlencoded, } from 'express';
-import { connect, connection } from 'mongoose';
+import pkg from 'mongoose';
+const { connect, connection } = pkg;
 import cors from 'cors';
 const mongoDB = "mongodb://127.0.0.1/healthapp_database";
 connect(mongoDB);
