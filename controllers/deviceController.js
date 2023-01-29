@@ -1,4 +1,4 @@
-import deviceModel from '../models/deviceModel';
+import deviceModel from '../models/deviceModel.js';
 import { verify } from "jsonwebtoken";
 
 

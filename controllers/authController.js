@@ -1,4 +1,4 @@
-import userModel from '../models/userModel';
+import userModel from '../models/userModel.js';
 import { genSalt, hash, compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 

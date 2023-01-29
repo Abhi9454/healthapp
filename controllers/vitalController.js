@@ -1,8 +1,8 @@
-import heartRateModel, { find } from '../models/heartRateModel';
-import glucoseModel, { find as _find } from '../models/glucoseModel';
-import weightModel, { find as __find } from '../models/weightModel';
-import sleepModel, { find as ___find } from '../models/sleepModel';
-import stepModel, { find as ____find } from '../models/stepsModel';
+import heartRateModel, { find } from '../models/heartRateModel.js';
+import glucoseModel, { find as _find } from '../models/glucoseModel.js';
+import weightModel, { find as __find } from '../models/weightModel.js';
+import sleepModel, { find as ___find } from '../models/sleepModel.js';
+import stepModel, { find as ____find } from '../models/stepsModel.js';
 import { verify } from "jsonwebtoken";
 import dateFormat from 'dateformat';
 

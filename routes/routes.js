@@ -1,10 +1,10 @@
 import { Router } from 'express';
 const router = Router();
 export default router;
-import { addUser, getallUsers, getUserDetails, getUserbyId, updateUser, deleteUser, getState, getCity, getallUsersAssigned, getallUsersDuringSignUp, partnerDashboard, adminDashboard } from '../controllers/userController';
-import { addDevice, getAllDevices, getDeviceDetailById, updateDevice, deleteDevice } from '../controllers/deviceController';
-import { signUp, login } from '../controllers/authController';
-import { addHeartRate, getHeartRateById, addGlucose, getGlucoseById, addWeight, getWeightById, addSleep, getSleepById, addStep, getStepById } from '../controllers/vitalController';
+import { addUser, getallUsers, getUserDetails, getUserbyId, updateUser, deleteUser, getState, getCity, getallUsersAssigned, getallUsersDuringSignUp, partnerDashboard, adminDashboard } from '../controllers/userController.js';
+import { addDevice, getAllDevices, getDeviceDetailById, updateDevice, deleteDevice } from '../controllers/deviceController.js';
+import { signUp, login } from '../controllers/authController.js';
+import { addHeartRate, getHeartRateById, addGlucose, getGlucoseById, addWeight, getWeightById, addSleep, getSleepById, addStep, getStepById } from '../controllers/vitalController.js';
 
 /////////// (Admin/Partner/Patient) Route/////
 router.route('/addUser').post(addUser);
