@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const heartRateSchema = new mongoose.Schema({
+const heartRateSchema = new Schema({
 	userId : {
 		required: true,
 		type: String
@@ -17,4 +17,4 @@ const heartRateSchema = new mongoose.Schema({
 },{collection : 'heartRate'}
 )
 
-module.exports = mongoose.model('heartRate',heartRateSchema)
+export default model('heartRate',heartRateSchema)

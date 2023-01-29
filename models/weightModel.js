@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const stepSchema = new mongoose.Schema({
+const stepSchema = new Schema({
 	userId : {
 		required: true,
 		type: String
@@ -16,4 +16,4 @@ const stepSchema = new mongoose.Schema({
 	},
 },{collection : 'weight'},)
 
-module.exports = mongoose.model('weight',stepSchema)
+export default model('weight',stepSchema)

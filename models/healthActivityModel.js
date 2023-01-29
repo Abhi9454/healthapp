@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const healthActivitySchema = new mongoose.Schema({
+const healthActivitySchema = new Schema({
 	name : {
 		required: true,
 		type: String
@@ -17,4 +17,4 @@ const healthActivitySchema = new mongoose.Schema({
 },{collection : 'healthActivity'},)
 
 
-module.exports = mongoose.model('healthActivity',healthActivitySchema)
+export default model('healthActivity',healthActivitySchema)

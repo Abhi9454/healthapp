@@ -1,12 +1,12 @@
 require('dotenv').config();
 
-const express = require('express');
-const mongoose = require('mongoose');
-var cors = require('cors')
+import express, { json, urlencoded, } from 'express';
+import { connect, connection } from 'mongoose';
+import cors from 'cors';
 const mongoDB = "mongodb://127.0.0.1/healthapp_database";
-mongoose.connect(mongoDB);
+connect(mongoDB);
 
-const database = mongoose.connection;
+const database = connection;
 
 database.on('error', (error) => {
     console.log(error)
@@ -17,11 +17,11 @@ database.once('connected', () => {
 })
 const app = express();
 
-app.use(express.json());
+app.use(json());
 
 
 
-app.use(express.urlencoded({ extended: true }));
+app.use(urlencoded({ extended: true }));
 
 var corsOptions = {
     origin: '*',
@@ -46,11 +46,11 @@ app.all('/api',function(req, res, next) {
 });
 
 
-const routes = require('./routes/routes');
+import routes from './routes/routes';
 
 app.use('/api', routes);
 
-app.use('/view',express.static('./uploads'))
+//app.use('/view',static('./uploads'))
 
 app.listen(3000, () => {
     console.log(`Server Started at ${3000}`)

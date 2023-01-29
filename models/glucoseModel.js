@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const glucoseSchema = new mongoose.Schema({
+const glucoseSchema = new Schema({
 	userId : {
 		required: true,
 		type: String
@@ -16,4 +16,4 @@ const glucoseSchema = new mongoose.Schema({
 	},
 },{collection : 'glucose'},)
 
-module.exports = mongoose.model('glucose',glucoseSchema)
+export default model('glucose',glucoseSchema)
