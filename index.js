@@ -1,4 +1,5 @@
-require('dotenv').config();
+import dotenv from "dotenv";
+dotenv.config({ silent: process.env.NODE_ENV === 'production' });
 
 import express, { json, urlencoded, } from 'express';
 import pkg from 'mongoose';
