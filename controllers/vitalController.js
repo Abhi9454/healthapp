@@ -11,7 +11,7 @@ import dateFormat from 'dateformat';
 
 export async function getHeartRateById(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             const heartRate = await heartRateModel.find({ userId: req.body.id });
             res.status(200).json({ success: true, message: heartRate });
         });
@@ -22,7 +22,7 @@ export async function getHeartRateById(req, res) {
 }
 export function addHeartRate(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { heartRate } = req.body;
             const userId = users.id;
             const createdAt = dateFormat(Date.now(), "dd-mm-yyyy h:MM:ss");
