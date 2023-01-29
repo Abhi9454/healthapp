@@ -4,7 +4,7 @@ export default router;
 import { addUser, getallUsers, getUserDetails, getUserbyId, updateUser, deleteUser, getState, getCity, getallUsersAssigned, getallUsersDuringSignUp, partnerDashboard, adminDashboard } from '../controllers/userController.js';
 import { addDevice, getAllDevices, getDeviceDetailById, updateDevice, deleteDevice } from '../controllers/deviceController.js';
 import { signUp, login } from '../controllers/authController.js';
-import { addHeartRate, getHeartRateById, addGlucose, getGlucoseById, addWeight, getWeightById, addSleep, getSleepById, addStep, getStepById } from '../controllers/vitalController.js';
+import { addHeartRate, getHeartRateById, addGlucose, getGlucoseById, addWeight, getWeightById, addSleep, getSleepById, addStep, getStepById, getUserVitals } from '../controllers/vitalController.js';
 
 /////////// (Admin/Partner/Patient) Route/////
 router.route('/addUser').post(addUser);
@@ -56,4 +56,8 @@ router.route('/getSleep').post(getSleepById);
 /////////// Steps Route/////
 router.route('/addSteps').post(addStep);
 router.route('/getSteps').post(getStepById);
+
+
+/////////// Get User Route/////
+router.route('/getUserVital').post(getUserVitals);
 

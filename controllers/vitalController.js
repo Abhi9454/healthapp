@@ -3,12 +3,29 @@ import glucoseModel from '../models/glucoseModel.js';
 import weightModel from '../models/weightModel.js';
 import sleepModel from '../models/sleepModel.js';
 import stepModel from '../models/stepsModel.js';
+import userModel from '../models/userModel.js';
 import pkgs from 'jsonwebtoken';
 const { sign } = pkgs;
 import dateFormat from 'dateformat';
 
 
-
+export async function getUserVitals(req, res) {
+    try {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+            var users = await userModel.find({ _id: req.body.id });
+            const heartRate = await heartRateModel.find({ userId: req.body.id }).sort([['_id', -1]]).limit(1);
+            const weight = await weightModel.find({ userId: req.body.id }).sort([['_id', -1]]).limit(1);
+            const glucose = await glucoseModel.find({ userId: req.body.id }).sort([['_id', -1]]).limit(1);
+            const sleep = await sleepModel.find({ userId: req.body.id }).sort([['_id', -1]]).limit(1);
+            const steps = await stepModel.find({ userId: req.body.id }).sort([['_id', -1]]).limit(1);
+            res.status(200).json({ success: true, user: users , heartRate : heartRate, weight : weight,
+                glucose: glucose, sleep : sleep, steps : steps});
+        });
+    }
+    catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+}
 export async function getHeartRateById(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
