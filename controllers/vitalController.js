@@ -29,8 +29,8 @@ export async function getUserVitals(req, res) {
 export async function getEmergencyVital(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            var heartRate = await heartRateModel.find({ $or: [ { heartRate: { $lt: 60 } }, { heartRate: { $gt: 95 } } ] }).distinct().lean();
-            var glucose = await glucoseModel.find({ $or: [ { glucose: { $lt: 100 } }, { glucose: { $gt: 125 } } ] }).distinct().lean();
+            var heartRate = await heartRateModel.find({ $or: [ { heartRate: { $lt: 60 } }, { heartRate: { $gt: 95 } } ] }).lean();
+            var glucose = await glucoseModel.find({ $or: [ { glucose: { $lt: 100 } }, { glucose: { $gt: 125 } } ] }).lean();
             if(heartRate.length > 0){
                 for (var i = 0; i < heartRate.length; i++) {
                     if (heartRate[i].userId != null) {
