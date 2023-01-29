@@ -4,7 +4,7 @@ const weightModel = require('../models/weightModel');
 const sleepModel = require('../models/sleepModel');
 const stepModel = require('../models/stepsModel');
 const jwt = require("jsonwebtoken")
-const dateFormat = require('dateformat');
+import dateFormat, { masks } from "dateformat";
 
 
 
