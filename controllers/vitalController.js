@@ -168,14 +168,14 @@ export async function getStepById(req, res) {
 export function addStep(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
-            const { userId, step } = req.body;
+            const { userId, steps } = req.body;
             const createdAt = dateFormat(Date.now(), "dd-mm-yyyy hh:MM:ss TT");
-            var steps = new stepModel({ userId, step, createdAt });
-            await steps.save();
+            var step = new stepModel({ userId, steps, createdAt });
+            await step.save();
             res.status(200).json({
                 success: true, message: {
                     message: "Added successfully",
-                    steps: steps,
+                    steps: step,
                 }
             });
         });
