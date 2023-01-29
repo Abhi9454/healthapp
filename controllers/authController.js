@@ -43,7 +43,6 @@ export async function signUp(req, res) {
     }
 }
 export async function login(req, res) {
-    console.log('cominerg');
     try {
         const { email, password } = req.body;
         let user = await userModel.findOne({ email, active: 1 });
