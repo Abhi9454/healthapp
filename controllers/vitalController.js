@@ -23,8 +23,7 @@ export async function getHeartRateById(req, res) {
 export function addHeartRate(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
-            const { heartRate } = req.body;
-            const userId = users.id;
+            const {userId, heartRate } = req.body;
             const createdAt = dateFormat(Date.now(), "dd-mm-yyyy h:MM:ss");
             var heart = new heartRateModel({ userId, heartRate, createdAt });
             await heart.save();
