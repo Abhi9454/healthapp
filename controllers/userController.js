@@ -1,6 +1,8 @@
 import userModel from '../models/userModel.js';
 import { verify } from "jsonwebtoken";
-import { genSalt, hash } from "bcryptjs";
+import pkg from 'bcryptjs';
+const { genSalt, hash } = pkg;
+
 
 
 
