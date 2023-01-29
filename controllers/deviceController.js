@@ -15,7 +15,7 @@ export async function getAllDevices(req, res) {
 }
 export async function getDeviceDetailById(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             const device = await deviceModel.findOne({ _id: req.body.id });
             res.status(200).json({ success: true, message: device });
         });
@@ -26,7 +26,7 @@ export async function getDeviceDetailById(req, res) {
 }
 export function addDevice(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { name, modelName, modelId, partnerId } = req.body;
             let device = await deviceModel.findOne({ modelId });
             if (device)
@@ -49,7 +49,7 @@ export function addDevice(req, res) {
 }
 export function updateDevice(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { name, modelName, modelId, partnerId, id } = req.body;
             let device = await deviceModel.findOne({ _id: id });
             if (!device)
@@ -77,7 +77,7 @@ export function updateDevice(req, res) {
 }
 export function deleteDevice(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { id } = req.body;
             let device = await deviceModel.findOne({ _id: id });
             if (!device)

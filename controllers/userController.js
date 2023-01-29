@@ -18,7 +18,7 @@ export async function getallUsersDuringSignUp(req, res) {
 }
 export async function adminDashboard(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             var activePatient = await userModel.find({ userType: 2, active: 1 });
             var activePartner = await userModel.find({ userType: 1, active: 1 });
             var InactivePatient = await userModel.find({ userType: 2, active: 0 });
@@ -38,7 +38,7 @@ export async function adminDashboard(req, res) {
 }
 export async function partnerDashboard(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             console.log('user cominf', user);
             var activePatient = await userModel.find({ userType: 2, active: 1 });
             var InactivePatient = await userModel.find({ userType: 2, active: 0 });
@@ -56,7 +56,7 @@ export async function partnerDashboard(req, res) {
 export async function getallUsers(req, res) {
     try {
         const { type } = req.body;
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             var users = await userModel.find({ userType: type }).sort([['_id', -1]]).lean();
             if (type == 2) {
                 for (var i = 0; i < users.length; i++) {
@@ -84,7 +84,7 @@ export async function getallUsers(req, res) {
 export async function getallUsersAssigned(req, res) {
     try {
         const { id } = req.body;
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             const users = await userModel.find({ partnerId: id }).sort([['_id', -1]]);
 
 
@@ -97,7 +97,7 @@ export async function getallUsersAssigned(req, res) {
 }
 export async function getUserDetails(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             const users = await userModel.findOne({ _id: req.body.id });
             res.status(200).json({ success: true, message: users });
         });
@@ -108,7 +108,7 @@ export async function getUserDetails(req, res) {
 }
 export function getUserbyId(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             const data = await userModel.findOne({ _id: req.params.uid });
             if (!data)
                 return res.status(400).json({ status: false, message: "User Does not Exist" });
@@ -125,7 +125,7 @@ export function getUserbyId(req, res) {
 }
 export function addUser(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { firstName, lastName, gender, phone, modelId, email, dob, address, city, state, country, active, pincode, userType, partnerId, deviceId, organizationName, password } = req.body;
             let user = await userModel.findOne({ email });
             let partner = '';
@@ -167,7 +167,7 @@ export function addUser(req, res) {
 }
 export function updateUser(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { firstName, lastName, gender, phone, email, dob, userType, modelId, healthActivity, profileImageUrl, description, coverImageUrl, category, address, city, password, state, country, active, pincode, organizationName, partnerId, deviceId, id } = req.body;
             let user = await userModel.findOne({ _id: id });
             if (!user)
@@ -216,7 +216,7 @@ export function updateUser(req, res) {
 }
 export function deleteUser(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { id } = req.body;
             let user = await userModel.findOne({ _id: id });
             if (!user)

@@ -43,7 +43,7 @@ export function addHeartRate(req, res) {
 }
 export async function getWeightById(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             const weight = await weightModel({ userId: req.body.id });
             res.status(200).json({ success: true, message: weight });
         });
@@ -54,7 +54,7 @@ export async function getWeightById(req, res) {
 }
 export function addWeight(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { userId,weight } = req.body;
             const createdAt = dateFormat(Date.now(), "dd-mm-yyyy hh:MM:ss TT");
             var weightDetail = new weightModel({ userId, weight, createdAt });
@@ -75,7 +75,7 @@ export function addWeight(req, res) {
 }
 export async function getGlucoseById(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             const glucose = await glucoseModel({ userId: req.body.id });
             res.status(200).json({ success: true, message: glucose });
         });
@@ -86,7 +86,7 @@ export async function getGlucoseById(req, res) {
 }
 export function addGlucose(req, res) {
     try {
-        verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { userId, glucose } = req.body;
             const createdAt = dateFormat(Date.now(), "dd-mm-yyyy hh:MM:ss TT");
             var gluc = new glucoseModel({ userId, glucose, createdAt });
@@ -107,7 +107,7 @@ export function addGlucose(req, res) {
 }
 export async function getSleepById(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             const sleep = await sleepModel({ userId: req.body.id });
             res.status(200).json({ success: true, message: sleep });
         });
@@ -118,7 +118,7 @@ export async function getSleepById(req, res) {
 }
 export function addSleep(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { userId, sleep } = req.body;
             const createdAt = dateFormat(Date.now(), "dd-mm-yyyy hh:MM:ss TT");
             var sleeps = new sleepModel({ userId, sleep, createdAt });
@@ -139,7 +139,7 @@ export function addSleep(req, res) {
 }
 export async function getStepById(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             const steps = await stepModel({ userId: req.body.id });
             res.status(200).json({ success: true, message: steps });
         });
@@ -150,7 +150,7 @@ export async function getStepById(req, res) {
 }
 export function addStep(req, res) {
     try {
-        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { userId, step } = req.body;
             const createdAt = dateFormat(Date.now(), "dd-mm-yyyy hh:MM:ss TT");
             var steps = new stepModel({ userId, step, createdAt });
