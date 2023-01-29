@@ -29,8 +29,12 @@ export async function getUserVitals(req, res) {
 export async function getEmergencyVital(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            var heartRate = await heartRateModel.find({ $or: [ { heartRate: { $lt: 60 } }, { heartRate: { $gt: 95 } } ] }).sort([['_id', -1]]).lean();
-            var glucose = await glucoseModel.find({ $or: [ { glucose: { $lt: 100 } }, { glucose: { $gt: 125 } } ] }).sort([['_id', -1]]).lean();
+            var heartRate = await heartRateModel.find({ $or: [ { heartRate: { $lt: 60 } }, { heartRate: { $gt: 95 } } ] }).select("firstName")
+            .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
+            .select("state").select("country").select('gender').sort([['_id', -1]]).lean();
+            var glucose = await glucoseModel.find({ $or: [ { glucose: { $lt: 100 } }, { glucose: { $gt: 125 } } ] }).select("firstName")
+            .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
+            .select("state").select("country").select('gender').sort([['_id', -1]]).lean();
             if(heartRate.length > 0){
                 for (var i = 0; i < heartRate.length; i++) {
                     if (heartRate[i].userId != null) {
