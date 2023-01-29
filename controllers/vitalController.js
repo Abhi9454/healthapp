@@ -4,6 +4,7 @@ const weightModel = require('../models/weightModel');
 const sleepModel = require('../models/sleepModel');
 const stepModel = require('../models/stepsModel');
 const jwt = require("jsonwebtoken")
+const dateFormat = require('dateformat');
 
 
 
@@ -24,7 +25,7 @@ module.exports = {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
                 const {heartRate} = req.body      
                 const userId = users.id
-                const createdAt = Date.now()    
+                const createdAt = dateFormat(Date.now() , "dd-mm-yyyy h:MM:ss")  
                 var heart =  new heartRateModel({userId,heartRate,createdAt})
                 await heart.save();
                 res.status(200).json({success : true,message:
@@ -155,7 +156,7 @@ module.exports = {
             jwt.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function(err, users){
                 const {step} = req.body  
                 const userId = users.id    
-                const createdAt = Date.now()         
+                const createdAt = Date.now()        
                 var steps =  new stepModel({userId,step,createdAt})
                 await steps.save();
                 res.status(200).json({success : true,message:
