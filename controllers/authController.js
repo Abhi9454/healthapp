@@ -1,6 +1,6 @@
 import userModel from '../models/userModel.js';
 import pkg from 'bcryptjs';
-const { genSalt, hash } = pkg;
+const { genSalt, hash, compare } = pkg;
 import pkgs from 'jsonwebtoken';
 const { sign } = pkgs;
 
@@ -9,7 +9,7 @@ export async function signUp(req, res) {
         const { firstName, lastName, email, password, userType, phone, organizationName, partnerId } = req.body;
         let user = await userModel.findOne({ email });
         if (user)
-            return res.status(400).json({ success: false, message: "Email Already Exists" });
+        return res.status(400).json({ success: false, message: "Email Already Exists" });
         user = new userModel({ firstName, lastName, email, password, userType, phone, organizationName, partnerId });
         const salt = await genSalt(10);
         user.password = await hash(password, salt);
