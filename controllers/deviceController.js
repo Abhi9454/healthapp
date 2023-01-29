@@ -1,5 +1,6 @@
 import deviceModel from '../models/deviceModel.js';
-import { verify } from "jsonwebtoken";
+import pkg from 'jsonwebtoken';
+const { sign } = pkg;
 
 
 

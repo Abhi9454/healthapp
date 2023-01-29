@@ -3,7 +3,8 @@ import glucoseModel, { find as _find } from '../models/glucoseModel.js';
 import weightModel, { find as __find } from '../models/weightModel.js';
 import sleepModel, { find as ___find } from '../models/sleepModel.js';
 import stepModel, { find as ____find } from '../models/stepsModel.js';
-import { verify } from "jsonwebtoken";
+import pkgs from 'jsonwebtoken';
+const { sign } = pkgs;
 import dateFormat from 'dateformat';
 
 

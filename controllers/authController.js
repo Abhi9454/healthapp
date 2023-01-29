@@ -1,7 +1,8 @@
 import userModel from '../models/userModel.js';
 import pkg from 'bcryptjs';
 const { genSalt, hash } = pkg;
-import { sign } from "jsonwebtoken";
+import pkgs from 'jsonwebtoken';
+const { sign } = pkgs;
 
 export async function signUp(req, res) {
     try {
