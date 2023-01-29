@@ -57,5 +57,3 @@ router.route('/getSleep').post(getSleepById);
 router.route('/addSteps').post(addStep);
 router.route('/getSteps').post(getStepById);
 
-
-module.exports = router
