@@ -26,6 +26,34 @@ export async function getUserVitals(req, res) {
         res.status(400).json({ success: false, message: error.message });
     }
 }
+export async function getEmergencyVital(req, res) {
+    try {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+            var heartRate = await heartRateModel.find({ $or: [ { heartRate: { $lt: 60 } }, { heartRate: { $gt: 95 } } ] }).lean();
+            var glucose = await glucoseModel.find({ $or: [ { glucose: { $lt: 100 } }, { glucose: { $gt: 125 } } ] }).select('userId').lean();
+            if(heartRate.length > 0){
+                for (var i = 0; i < heartRate.length; i++) {
+                    if (heartRate[i].userId != null) {
+                        var userDetail = await userModel.findOne({ _id: heartRate[i].userId });
+                        heartRate[i].userDetail = userDetail;
+                    }
+                }
+            }
+            if(glucose.length > 0){
+                for (var i = 0; i < glucose.length; i++) {
+                    if (glucose[i].userId != null) {
+                        var userDetail = await userModel.findOne({ _id: glucose[i].userId });
+                        glucose[i].partner = userDetail;
+                    }
+                }
+            }
+            res.status(200).json({ success: true, heartRate: heartRate , glucose : glucose});
+        });
+    }
+    catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+}
 export async function getHeartRateById(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
