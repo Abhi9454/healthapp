@@ -46,7 +46,7 @@ app.all('/api',function(req, res, next) {
 });
 
 
-import routes from './routes/routes';
+import routes from './routes/routes.js';
 
 app.use('/api', routes);
 
