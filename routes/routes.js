@@ -1,59 +1,61 @@
-const express = require('express');
-const router = express.Router();
-module.exports = router;
-const userController = require('../controllers/userController');
-const deviceController = require('../controllers/deviceController');
-const authController = require('../controllers/authController');
-const vitalController = require('../controllers/vitalController');
+import { Router } from 'express';
+const router = Router();
+export default router;
+import { addUser, getallUsers, getUserDetails, getUserbyId, updateUser, deleteUser, getState, getCity, getallUsersAssigned, getallUsersDuringSignUp, partnerDashboard, adminDashboard } from '../controllers/userController';
+import { addDevice, getAllDevices, getDeviceDetailById, updateDevice, deleteDevice } from '../controllers/deviceController';
+import { signUp, login } from '../controllers/authController';
+import { addHeartRate, getHeartRateById, addGlucose, getGlucoseById, addWeight, getWeightById, addSleep, getSleepById, addStep, getStepById } from '../controllers/vitalController';
 
 /////////// (Admin/Partner/Patient) Route/////
-router.route('/addUser').post(userController.addUser);
-router.route('/getallusers').post(userController.getallUsers);
-router.route('/getuserdetail').post(userController.getUserDetails);
-router.route('/getUserbyId/:uid').post(userController.getUserbyId);
-router.route('/updateUser').post(userController.updateUser);
-router.route('/deleteUser').post(userController.deleteUser);
-router.route('/getstate').get(userController.getState);
-router.route('/getcities').post(userController.getCity);
-router.route('/getallUsersAssigned').post(userController.getallUsersAssigned);
-router.route('/getallUsersDuringSignUp').get(userController.getallUsersDuringSignUp);
-router.route('/partnerDashboard').get(userController.partnerDashboard);
+router.route('/addUser').post(addUser);
+router.route('/getallusers').post(getallUsers);
+router.route('/getuserdetail').post(getUserDetails);
+router.route('/getUserbyId/:uid').post(getUserbyId);
+router.route('/updateUser').post(updateUser);
+router.route('/deleteUser').post(deleteUser);
+router.route('/getstate').get(getState);
+router.route('/getcities').post(getCity);
+router.route('/getallUsersAssigned').post(getallUsersAssigned);
+router.route('/getallUsersDuringSignUp').get(getallUsersDuringSignUp);
+router.route('/partnerDashboard').get(partnerDashboard);
 
 
 ///////////Admin DashBoard Route/////
-router.route('/adminDashboard').get(userController.adminDashboard);
+router.route('/adminDashboard').get(adminDashboard);
 
 ///////////Authentication Route/////
-router.route('/signUp').post(authController.signUp);
-router.route('/login').post(authController.login);
+router.route('/signUp').post(signUp);
+router.route('/login').post(login);
 
 
 /////////// Device Route/////
-router.route('/adddevice').post(deviceController.addDevice);
-router.route('/getalldevice').post(deviceController.getAllDevices);
-router.route('/getdevicedetail').post(deviceController.getDeviceDetailById);
-router.route('/updatedevice').post(deviceController.updateDevice);
-router.route('/deletedevice').post(deviceController.deleteDevice);
+router.route('/adddevice').post(addDevice);
+router.route('/getalldevice').post(getAllDevices);
+router.route('/getdevicedetail').post(getDeviceDetailById);
+router.route('/updatedevice').post(updateDevice);
+router.route('/deletedevice').post(deleteDevice);
 
 
 
 /////////// Heart Rate Route/////
-router.route('/addHeartRate').post(vitalController.addHeartRate);
-router.route('/getHeartRate').post(vitalController.getHeartRateById);
+router.route('/addHeartRate').post(addHeartRate);
+router.route('/getHeartRate').post(getHeartRateById);
 
 /////////// Glucose Route/////
-router.route('/addGlucose').post(vitalController.addGlucose);
-router.route('/getGlucose').post(vitalController.getGlucoseById);
+router.route('/addGlucose').post(addGlucose);
+router.route('/getGlucose').post(getGlucoseById);
 
 /////////// Weight Route/////
-router.route('/addWeight').post(vitalController.addWeight);
-router.route('/getWeight').post(vitalController.getWeightById);
+router.route('/addWeight').post(addWeight);
+router.route('/getWeight').post(getWeightById);
 
 /////////// Sleep Route/////
-router.route('/addSleep').post(vitalController.addSleep);
-router.route('/getSleep').post(vitalController.getSleepById);
+router.route('/addSleep').post(addSleep);
+router.route('/getSleep').post(getSleepById);
 
 /////////// Steps Route/////
-router.route('/addSteps').post(vitalController.addStep);
-router.route('/getSteps').post(vitalController.getStepById);
+router.route('/addSteps').post(addStep);
+router.route('/getSteps').post(getStepById);
 
+
+module.exports = router
