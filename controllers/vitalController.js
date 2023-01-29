@@ -44,7 +44,7 @@ export function addHeartRate(req, res) {
 export async function getWeightById(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const weight = await weightModel({ userId: req.body.id });
+            const weight = await weightModel.find({ userId: req.body.id });
             res.status(200).json({ success: true, message: weight });
         });
     }
@@ -76,7 +76,7 @@ export function addWeight(req, res) {
 export async function getGlucoseById(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const glucose = await glucoseModel({ userId: req.body.id });
+            const glucose = await glucoseModel.find({ userId: req.body.id });
             res.status(200).json({ success: true, message: glucose });
         });
     }
@@ -108,7 +108,7 @@ export function addGlucose(req, res) {
 export async function getSleepById(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const sleep = await sleepModel({ userId: req.body.id });
+            const sleep = await sleepModel.find({ userId: req.body.id });
             res.status(200).json({ success: true, message: sleep });
         });
     }
@@ -140,7 +140,7 @@ export function addSleep(req, res) {
 export async function getStepById(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const steps = await stepModel({ userId: req.body.id });
+            const steps = await stepModel.find({ userId: req.body.id });
             res.status(200).json({ success: true, message: steps });
         });
     }
