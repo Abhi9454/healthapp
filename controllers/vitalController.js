@@ -1,8 +1,8 @@
-import heartRateModel, { find } from '../models/heartRateModel.js';
-import glucoseModel, { find as _find } from '../models/glucoseModel.js';
-import weightModel, { find as __find } from '../models/weightModel.js';
-import sleepModel, { find as ___find } from '../models/sleepModel.js';
-import stepModel, { find as ____find } from '../models/stepsModel.js';
+import heartRateModel from '../models/heartRateModel.js';
+import glucoseModel from '../models/glucoseModel.js';
+import weightModel from '../models/weightModel.js';
+import sleepModel from '../models/sleepModel.js';
+import stepModel from '../models/stepsModel.js';
 import pkgs from 'jsonwebtoken';
 const { sign } = pkgs;
 import dateFormat from 'dateformat';
@@ -11,8 +11,8 @@ import dateFormat from 'dateformat';
 
 export async function getHeartRateById(req, res) {
     try {
-        verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const heartRate = await find({ userId: req.body.id });
+        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+            const heartRate = await heartRateModel.find({ userId: req.body.id });
             res.status(200).json({ success: true, message: heartRate });
         });
     }
@@ -22,7 +22,7 @@ export async function getHeartRateById(req, res) {
 }
 export function addHeartRate(req, res) {
     try {
-        verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { heartRate } = req.body;
             const userId = users.id;
             const createdAt = dateFormat(Date.now(), "dd-mm-yyyy h:MM:ss");
@@ -44,8 +44,8 @@ export function addHeartRate(req, res) {
 }
 export async function getWeightById(req, res) {
     try {
-        verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const weight = await __find({ userId: req.body.id });
+        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+            const weight = await weightModel({ userId: req.body.id });
             res.status(200).json({ success: true, message: weight });
         });
     }
@@ -55,7 +55,7 @@ export async function getWeightById(req, res) {
 }
 export function addWeight(req, res) {
     try {
-        verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { weight } = req.body;
             const userId = users.id;
             const createdAt = Date.now();
@@ -77,8 +77,8 @@ export function addWeight(req, res) {
 }
 export async function getGlucoseById(req, res) {
     try {
-        verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const glucose = await _find({ userId: req.body.id });
+        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+            const glucose = await glucoseModel({ userId: req.body.id });
             res.status(200).json({ success: true, message: glucose });
         });
     }
@@ -110,8 +110,8 @@ export function addGlucose(req, res) {
 }
 export async function getSleepById(req, res) {
     try {
-        verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const sleep = await ___find({ userId: req.body.id });
+        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+            const sleep = await sleepModel({ userId: req.body.id });
             res.status(200).json({ success: true, message: sleep });
         });
     }
@@ -121,7 +121,7 @@ export async function getSleepById(req, res) {
 }
 export function addSleep(req, res) {
     try {
-        verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { sleep } = req.body;
             const userId = users.id;
             const createdAt = Date.now();
@@ -143,8 +143,8 @@ export function addSleep(req, res) {
 }
 export async function getStepById(req, res) {
     try {
-        verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const steps = await ____find({ userId: req.body.id });
+        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+            const steps = await stepModel({ userId: req.body.id });
             res.status(200).json({ success: true, message: steps });
         });
     }
@@ -154,7 +154,7 @@ export async function getStepById(req, res) {
 }
 export function addStep(req, res) {
     try {
-        verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+        sign.verify(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { step } = req.body;
             const userId = users.id;
             const createdAt = Date.now();
