@@ -55,22 +55,43 @@ export async function partnerDashboard(req, res) {
 }
 export async function getallUsers(req, res) {
     try {
-        const { type } = req.body;
+        const { type, id } = req.body;
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            var users = await userModel.find({ userType: type }).sort([['_id', -1]]).lean();
-            if (type == 2) {
-                for (var i = 0; i < users.length; i++) {
-                    if (users[i].partnerId != null) {
-                        var partner = await userModel.findOne({ _id: users[i].partnerId });
-                        users[i].partner = partner;
+            if(id != ''){
+                var users = await userModel.find({ userType: type, partnerId : id }).sort([['_id', -1]]).lean();
+                if (type == 2) {
+                    for (var i = 0; i < users.length; i++) {
+                        if (users[i].partnerId != null) {
+                            var partner = await userModel.findOne({ _id: users[i].partnerId });
+                            users[i].partner = partner;
+                        }
+                    }
+                }
+                if (type == 1) {
+                    for (var i = 0; i < users.length; i++) {
+                        if (users[i].partnerId != null) {
+                            var partner = await userModel.find({ partnerId: users[i]._id });
+                            users[i].patientCount = partner.length;
+                        }
                     }
                 }
             }
-            if (type == 1) {
-                for (var i = 0; i < users.length; i++) {
-                    if (users[i].partnerId != null) {
-                        var partner = await userModel.find({ partnerId: users[i]._id });
-                        users[i].patientCount = partner.length;
+            else{
+                var users = await userModel.find({ userType: type }).sort([['_id', -1]]).lean();
+                if (type == 2) {
+                    for (var i = 0; i < users.length; i++) {
+                        if (users[i].partnerId != null) {
+                            var partner = await userModel.findOne({ _id: users[i].partnerId });
+                            users[i].partner = partner;
+                        }
+                    }
+                }
+                if (type == 1) {
+                    for (var i = 0; i < users.length; i++) {
+                        if (users[i].partnerId != null) {
+                            var partner = await userModel.find({ partnerId: users[i]._id });
+                            users[i].patientCount = partner.length;
+                        }
                     }
                 }
             }

@@ -34,7 +34,7 @@ export async function getEmergencyVital(req, res) {
             if(heartRate.length > 0){
                 for (var i = 0; i < heartRate.length; i++) {
                     if (heartRate[i].userId != null) {
-                        var userDetail = await userModel.findOne({ _id: heartRate[i].userId }).select("firstName")
+                        var userDetail = await userModel.findOne({ _id: heartRate[i].userId, partnerId : req.body.id }).select("firstName")
                         .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
                         .select("state").select("country").select('gender');
                         heartRate[i].userDetail = userDetail;
@@ -44,7 +44,7 @@ export async function getEmergencyVital(req, res) {
             if(glucose.length > 0){
                 for (var i = 0; i < glucose.length; i++) {
                     if (glucose[i].userId != null) {
-                        var userDetail = await userModel.findOne({ _id: glucose[i].userId }).select("firstName")
+                        var userDetail = await userModel.findOne({ _id: glucose[i].userId, partnerId : req.body.id }).select("firstName")
                         .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
                         .select("state").select("country").select('gender');
                         glucose[i].partner = userDetail;
