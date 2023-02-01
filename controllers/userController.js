@@ -186,6 +186,31 @@ export function addUser(req, res) {
     }
 
 }
+export function statusUser(req, res) {
+    try {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
+            const { active, id } = req.body;
+            let user = await userModel.findOne({ _id: id });
+            if (!user)
+                return res.status(400).json({ status: false, message: "No User Exist" });
+            user = await userModel.findOneAndUpdate({ _id: id }, {
+                active: active
+            }, {
+                new: true
+            });
+            await user.save();
+            res.status(200).json({
+                status: false, message: {
+                    message: "Updated User Successfully",
+                    user: user,
+                }
+            });
+        });
+    }
+    catch (err) {
+        return res.status(400).json({ status: false, message: err.message });
+    }
+}
 export function updateUser(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {

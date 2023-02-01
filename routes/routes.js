@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 export default router;
-import { addUser, getallUsers, getUserDetails, getUserbyId, updateUser, deleteUser, getState, getCity, getallUsersAssigned, getallUsersDuringSignUp, partnerDashboard, adminDashboard } from '../controllers/userController.js';
+import { addUser, getallUsers, getUserDetails, statusUser,getUserbyId, updateUser, deleteUser, getState, getCity, getallUsersAssigned, getallUsersDuringSignUp, partnerDashboard, adminDashboard } from '../controllers/userController.js';
 import { addDevice, getAllDevices, getDeviceDetailById, updateDevice, deleteDevice } from '../controllers/deviceController.js';
 import { signUp, login } from '../controllers/authController.js';
 import { addHeartRate, getHeartRateById, addGlucose, getGlucoseById, addWeight, getWeightById, addSleep, getSleepById, addStep, getStepById, getUserVitals, getEmergencyVital } from '../controllers/vitalController.js';
@@ -12,6 +12,7 @@ router.route('/getallusers').post(getallUsers);
 router.route('/getuserdetail').post(getUserDetails);
 router.route('/getUserbyId/:uid').post(getUserbyId);
 router.route('/updateUser').post(updateUser);
+router.route('/statusUser').post(statusUser);
 router.route('/deleteUser').post(deleteUser);
 router.route('/getstate').get(getState);
 router.route('/getcities').post(getCity);

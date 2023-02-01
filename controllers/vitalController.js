@@ -7,6 +7,7 @@ import userModel from '../models/userModel.js';
 import pkgs from 'jsonwebtoken';
 const { sign } = pkgs;
 import dateFormat from 'dateformat';
+import moment  from 'moment';
 
 
 export async function getUserVitals(req, res) {
@@ -30,12 +31,13 @@ export async function getEmergencyVital(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
             let userList = [];
+            const {id,type} = req.body
             if(type === '0'){
                 var userDetails = await userModel.find({userType : 2 }).select("firstName")
                 .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
                 .select("state").select("country").select('gender').select("dob").select('_id').lean()
             } else {
-                var userDetails = await userModel.find({partnerId : req.body.id }).select("firstName")
+                var userDetails = await userModel.find({partnerId :id }).select("firstName")
                 .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
                 .select("state").select("country").select('gender').select("dob").select('_id').lean()
             }
@@ -72,7 +74,7 @@ export function addHeartRate(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const {userId, heartRate } = req.body;
-            const createdAt = dateFormat(Date.now(), "dd-mm-yyyy hh:MM:ss TT");
+            const createdAt = moment(Date.now()).format('DD-MM-YYYY hh:mm A')
             var heart = new heartRateModel({ userId, heartRate, createdAt });
             await heart.save();
             res.status(200).json({
@@ -104,7 +106,7 @@ export function addWeight(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { userId,weight } = req.body;
-            const createdAt = dateFormat(Date.now(), "dd-mm-yyyy hh:MM:ss TT");
+            const createdAt = moment(Date.now()).format('DD-MM-YYYY hh:mm A')
             var weightDetail = new weightModel({ userId, weight, createdAt });
             await weightDetail.save();
             res.status(200).json({
@@ -136,7 +138,7 @@ export function addGlucose(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { userId, glucose } = req.body;
-            const createdAt = dateFormat(Date.now(), "dd-mm-yyyy hh:MM:ss TT");
+                        const createdAt = moment(Date.now()).format('DD-MM-YYYY hh:mm A')
             var gluc = new glucoseModel({ userId, glucose, createdAt });
             await gluc.save();
             res.status(200).json({
@@ -168,7 +170,7 @@ export function addSleep(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { userId, sleep } = req.body;
-            const createdAt = dateFormat(Date.now(), "dd-mm-yyyy hh:MM:ss TT");
+                        const createdAt = moment(Date.now()).format('DD-MM-YYYY hh:mm A')
             var sleeps = new sleepModel({ userId, sleep, createdAt });
             await sleeps.save();
             res.status(200).json({
@@ -200,7 +202,7 @@ export function addStep(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, users) {
             const { userId, steps } = req.body;
-            const createdAt = dateFormat(Date.now(), "dd-mm-yyyy hh:MM:ss TT");
+                        const createdAt = moment(Date.now()).format('DD-MM-YYYY hh:mm A')
             var step = new stepModel({ userId, steps, createdAt });
             await step.save();
             res.status(200).json({
