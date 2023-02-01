@@ -29,7 +29,7 @@ export async function getUserVitals(req, res) {
 export async function getEmergencyVital(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            var userDetails = await userModel.find({partnerId : req.body.id }).select('_id')
+            var userDetails = await userModel.find({_id : req.body.id }).select('_id')
             for(var x = 0 ; x < userDetails.length ; x++){
                 var heartRate = await heartRateModel.find({ $or: [ { heartRate: { $lt: 60 } }, { heartRate: { $gt: 95 } } ] }, 
                     { $and: [ { userId: userDetails[x]._id}]}).sort([['_id', -1]]).lean();
