@@ -32,15 +32,19 @@ export async function getEmergencyVital(req, res) {
             var userDetails = await userModel.find({partnerId : req.body.id }).select("firstName")
             .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
             .select("state").select("country").select('gender').select('_id').lean()
+            let userList = [];
             if(userDetails.length > 0){
                 for(var x = 0 ; x < userDetails.length ; x++){
                     var heartRate = await heartRateModel.find({ $and: [ { $or : [ { heartRate: { $lt: 60 } }, { heartRate: { $gt: 95 } }]}, { userId: userDetails[x]._id} ] }).sort([['_id', -1]])
                     var glucose = await glucoseModel.find({ $and: [ { $or : [ { glucose: { $lt: 100 } }, { glucose: { $gt: 125 } }]}, { userId: userDetails[x]._id} ] }).sort([['_id', -1]])
                     userDetails[x].heartRate  = heartRate
                     userDetails[x].glucose = glucose
+                    if(userDetails[x].heartRate.length !== 0 && userDetails[x].glucose.length  !== 0 ){
+                        userList.push(userDetails[x])
+                    }
                 }
             }
-            res.status(200).json({ success: true, userDetail : userDetails});
+            res.status(200).json({ success: true, userDetail : userList});
         });
     }
     catch (error) {
