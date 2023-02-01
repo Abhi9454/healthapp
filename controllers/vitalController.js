@@ -29,10 +29,16 @@ export async function getUserVitals(req, res) {
 export async function getEmergencyVital(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            var userDetails = await userModel.find({partnerId : req.body.id }).select("firstName")
-            .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
-            .select("state").select("country").select('gender').select("dob").select('_id').lean()
             let userList = [];
+            if(type === '0'){
+                var userDetails = await userModel.find({userType : 2 }).select("firstName")
+                .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
+                .select("state").select("country").select('gender').select("dob").select('_id').lean()
+            } else {
+                var userDetails = await userModel.find({partnerId : req.body.id }).select("firstName")
+                .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
+                .select("state").select("country").select('gender').select("dob").select('_id').lean()
+            }
             if(userDetails.length > 0){
                 for(var x = 0 ; x < userDetails.length ; x++){
                     var heartRate = await heartRateModel.find({ $and: [ { $or : [ { heartRate: { $lt: 60 } }, { heartRate: { $gt: 95 } }]}, { userId: userDetails[x]._id} ] }).sort([['_id', -1]])
