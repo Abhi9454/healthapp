@@ -29,34 +29,18 @@ export async function getUserVitals(req, res) {
 export async function getEmergencyVital(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            var userDetails = await userModel.find({partnerId : req.body.id })
-            // for(var x = 0 ; x < userDetails.length ; x++){
-            //     var heartRate = await heartRateModel.find({ $or: [ { heartRate: { $lt: 60 } }, { heartRate: { $gt: 95 } } ] }, 
-            //         { $and: [ { userId: userDetails[x]._id}]}).sort([['_id', -1]]).lean();
-            //     var glucose = await glucoseModel.find({ $or: [ { glucose: { $lt: 100 } }, { glucose: { $gt: 125 } } ] },
-            //         { $and: [ { userId: userDetails[x]._id}]}).sort([['_id', -1]]).lean();
-            //     if(heartRate.length > 0){
-            //         for (var i = 0; i < heartRate.length; i++) {
-            //             if (heartRate[i].userId != null) {
-            //                 var userDetail = await userModel.findOne({ _id: heartRate[i].userId}).select("firstName")
-            //                 .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
-            //                 .select("state").select("country").select('gender');
-            //                 heartRate[i].userDetail = userDetail;
-            //             }
-            //         }
-            //     }
-            //     if(glucose.length > 0){
-            //         for (var i = 0; i < glucose.length; i++) {
-            //             if (glucose[i].userId != null) {
-            //                 var userDetail = await userModel.findOne({ _id: glucose[i].userId, partnerId : req.body.id }).select("firstName")
-            //                 .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
-            //                 .select("state").select("country").select('gender');
-            //                 glucose[i].partner = userDetail;
-            //             }
-            //         }
-            //     }
-            // }
-            res.status(200).json({ success: true, heartRate: userDetails , glucose : userDetails});
+            var userDetails = await userModel.find({partnerId : req.body.id }).select("firstName")
+            .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
+            .select("state").select("country").select('gender').select('_id').lean()
+            if(userDetails.length > 0){
+                for(var x = 0 ; x < userDetails.length ; x++){
+                    var heartRate = await heartRateModel.find({ $and: [ { $or : [ { heartRate: { $lt: 60 } }, { heartRate: { $gt: 95 } }]}, { userId: userDetails[x]._id} ] }).sort([['_id', -1]])
+                    var glucose = await glucoseModel.find({ $and: [ { $or : [ { glucose: { $lt: 100 } }, { glucose: { $gt: 125 } }]}, { userId: userDetails[x]._id} ] }).sort([['_id', -1]])
+                    userDetails[x].heartRate  = heartRate
+                    userDetails[x].glucose = glucose
+                }
+            }
+            res.status(200).json({ success: true, userDetail : userDetails});
         });
     }
     catch (error) {
@@ -223,3 +207,25 @@ export function addStep(req, res) {
     }
 
 }
+
+
+// if(heartRate.length > 0){
+//     for (var i = 0; i < heartRate.length; i++) {
+//         if (heartRate[i].userId != null) {
+//             var userDetail = await userModel.findOne({ _id: heartRate[i].userId}).select("firstName")
+//             .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
+//             .select("state").select("country").select('gender');
+//             heartRate[i].userDetail = userDetail;
+//         }
+//     }
+// }
+// if(glucose.length > 0){
+//     for (var i = 0; i < glucose.length; i++) {
+//         if (glucose[i].userId != null) {
+//             var userDetail = await userModel.findOne({ _id: glucose[i].userId, partnerId : req.body.id }).select("firstName")
+//             .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
+//             .select("state").select("country").select('gender');
+//             glucose[i].partner = userDetail;
+//         }
+//     }
+// }
