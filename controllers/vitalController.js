@@ -27,6 +27,39 @@ export async function getUserVitals(req, res) {
         res.status(400).json({ success: false, message: error.message });
     }
 }
+export async function getNurseDashboardVital(req, res) {
+    try {
+        sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
+            let userList = [];
+            const {id,type} = req.body
+            if(type === '0'){
+                var userDetails = await userModel.find({userType : 2 }).select("firstName")
+                .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
+                .select("state").select("country").select('gender').select("dob").select('_id').lean()
+            } else {
+                var userDetails = await userModel.find({partnerId :id }).select("firstName")
+                .select("lastName").select("phone").select("email").select("profileImageUrl").select("address").select("city")
+                .select("state").select("country").select('gender').select("dob").select('_id').lean()
+            }
+            if(userDetails.length > 0){
+                for(var x = 0 ; x < userDetails.length ; x++){
+                    var heartRate = await heartRateModel.find( { userId: userDetails[x]._id}).sort([['_id', -1]]).limit(1)
+                    var glucose = await glucoseModel.find( { userId: userDetails[x]._id}).sort([['_id', -1]]).limit(1)
+                    var sleep = await sleepModel.find( { userId: userDetails[x]._id}).sort([['_id', -1]]).limit(1)
+                    var steps = await stepModel.find( { userId: userDetails[x]._id}).sort([['_id', -1]]).limit(1)
+                    userDetails[x].heartRate  = heartRate
+                    userDetails[x].glucose = glucose
+                    userDetails[x].sleep = sleep
+                    userDetails[x].steps = steps
+                }
+            }
+            res.status(200).json({ success: true, userDetail : userDetails});
+        });
+    }
+    catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+}
 export async function getEmergencyVital(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
