@@ -103,7 +103,7 @@ export async function getHeartRateById(req, res) {
                     $lt: toDate
                 }
             });
-            res.status(200).json({ success: true, message: heartRate });
+            res.status(200).json({ success: true, message: fromDate });
         });
     }
     catch (error) {
