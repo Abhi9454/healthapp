@@ -12,7 +12,7 @@ const heartRateSchema = new Schema({
 		default:''
 	},
     createdAt:{
-		type: "String",
+		type: Date,
 		default: Date.now()
 	},
 },{collection : 'heartRate'}
