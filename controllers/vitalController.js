@@ -95,7 +95,13 @@ export async function getEmergencyVital(req, res) {
 export async function getHeartRateById(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const heartRate = await heartRateModel.find({ userId: req.body.id });
+            const toDate = moment(Date.now()).format('DD-MM-YYYY hh:mm A')
+            const fromDate = moment(Date.now() - req.body.date).format('DD-MM-YYYY hh:mm A')
+            const heartRate = await heartRateModel.find({ userId: req.body.id ,
+                createdAt: {
+                    $gte: fromDate,
+                    $lte: toDate
+              }});
             res.status(200).json({ success: true, message: heartRate });
         });
     }
