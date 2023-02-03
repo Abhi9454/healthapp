@@ -95,8 +95,8 @@ export async function getEmergencyVital(req, res) {
 export async function getHeartRateById(req, res) {
     try {
         sign(req.headers.authorization.split(' ')[1], 'healthapp', async function (err, user) {
-            const toDate = moment(Date.now()).format('DD-MM-YYYY hh:mm A')
-            const fromDate = moment(Date.now() - (req.body.date * 24*60*60*1000)).format('DD-MM-YYYY hh:mm A')
+            const toDate = Date.now()
+            const fromDate = Date.now() - (req.body.date * 24*60*60*1000)
             const heartRate = await heartRateModel.find({ userId: req.body.id ,
                 createdAt: {
                     $gte: fromDate, 
