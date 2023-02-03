@@ -98,7 +98,7 @@ export async function getHeartRateById(req, res) {
             const toDate = moment(Date.now()).format('DD-MM-YYYY hh:mm A')
             const fromDate = moment(Date.now() - (req.body.date * 24*60*60*1000)).format('DD-MM-YYYY hh:mm A')
             const heartRate = await heartRateModel.find({ userId: req.body.id ,
-                created_on: {
+                createdAt: {
                     $gte: fromDate, 
                     $lt: toDate
                 }
